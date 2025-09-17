@@ -12,3 +12,6 @@ git add app
 git commit -m "Add Expo app scaffold"
 git push
 
+cd app
+npm install @supabase/supabase-js react-native-url-polyfill expo-secure-store
+npm start
