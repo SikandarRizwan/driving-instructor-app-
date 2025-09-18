@@ -1,7 +1,14 @@
-import 'react-native-url-polyfill/auto';
-import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import { supabase } from './lib/supabase';
 
-const SUPABASE_URL = 'https://ftrlypmmlbvhnskcxkgh.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0cmx5cG1tbGJ2aG5za2N4a2doIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDA3MjAsImV4cCI6MjA3Mzc3NjcyMH0.ypVoRdhC42qU-NeHZ4-hRu5l4IXd6lSfhVzWIkufCHw';
+export default function App() {
+  const [session, setSession] = useState<any>(null);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [learners, setLearners] = useState<any[]>([]);
+  const [name, setName] = useState('');
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => s_
